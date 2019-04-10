@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include "tokens.h"
 #include "structures.h"
@@ -42,6 +43,7 @@ struct token *_init_token(char *str, int length, int is_preset) {
     token->length = length;
     token->string = str;
     token->is_preset = is_preset;
+    printf("buffer?\n");
     return token;
 }
 
@@ -57,12 +59,18 @@ int preset_token_buffer_size(struct token **buffer) {
     return size;
 }
 
-int is_preset_token(struct token **buffer, char *str) {
+int is_preset_token(struct token **buffer, char *str, int length) {
     int str_len = 0;
     while(str[str_len] != '\0') {
         str_len++;
     }
     for(int i = 0; i < preset_token_buffer_size(buffer); i++) {
         struct token *token = buffer[i];
+        if (token->length == length) {
+            for(int i = 0; i < length; i++) {
+                if (token->string[i] != str[i]) return 0;
+            } return 1;
+        }
     }
+    return 0;
 }

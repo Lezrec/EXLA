@@ -12,25 +12,24 @@ struct file_container *_debug_init(char *file_dir) {
 }
 
 void debug_print(int debug_flag, char *str) {
-    if (debug_flag) printf(str);
+    if (debug_flag == 1) printf(str);
 }
 
 void debug_print_line(int debug_flag, char *str) {
-    if (debug_flag) printf("%s\n", str);
+    if (debug_flag == 1) printf("%s\n", str);
 }
 
 void debug_file_overwrite(int debug_flag, struct file_container *container, char *str) {
-    if (debug_flag) {
+    if (debug_flag == 1) {
         FILE *container_file = fopen(container->file_dir, "w+");
         fputs(str, container_file);
         fclose(container_file);
         update_container(container);
     }
-
 }
 
 void debug_file_clear(int debug_flag, struct file_container *container) {
-    if (debug_flag) {
+    if (debug_flag == 1) {
         FILE *container_file = fopen(container->file_dir, "w+");
         container->length = 0;
         fclose(container_file);
@@ -38,7 +37,7 @@ void debug_file_clear(int debug_flag, struct file_container *container) {
 }
 
 void debug_file_append(int debug_flag, struct file_container *container, char *str) {
-    if (debug_flag) {
+    if (debug_flag == 1) {
         FILE *container_file = fopen(container->file_dir, "a");
         fputs(str, container_file); //todo test all this
         fclose(container_file);
@@ -46,7 +45,7 @@ void debug_file_append(int debug_flag, struct file_container *container, char *s
     }
 }
 void debug_file_append_line(int debug_flag, struct file_container *container, char *str) {
-    if (debug_flag) {
+    if (debug_flag == 1) {
         FILE *container_file = fopen(container->file_dir, "a");
         fputs(str, container_file);
         fputs("\n", container_file);

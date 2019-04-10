@@ -3,6 +3,7 @@
 #include "tokens.h"
 #include "structures.h"
 #include "debug.h"
+#include "test.h"
 
 int main(int argc, char **argv) {
     int _debug_on = 1;
@@ -11,9 +12,9 @@ int main(int argc, char **argv) {
         char* current_arg = argv[i];
         i++;
     } while(argv[i]);
-    debug_print(_debug_on, "test 1 2 3");
-    struct file_container *_debug_file_container = _debug_init("debug.txt");
+    struct file_container *_debug_file_container = _debug_init("E:/EXLA/src/debug.txt");
     debug_file_overwrite(_debug_on, _debug_file_container, "hmm");
     debug_file_append(_debug_on, _debug_file_container, "attatched");
+    test();
     return 0;
 }
