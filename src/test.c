@@ -6,7 +6,7 @@
 
 void test(void) {
     printf("Here?\n");
-    struct token **buffer = _init_token_buffer();
+    token **buffer = _init_token_buffer();
     char *test_str = "->";
     printf("what about here?\n");
     int found_in_buffer = is_preset_token(buffer, test_str, 2);

@@ -12,7 +12,7 @@ int main(int argc, char **argv) {
         char* current_arg = argv[i];
         i++;
     } while(argv[i]);
-    struct file_container *_debug_file_container = _debug_init("E:/EXLA/src/debug.txt");
+     file_container *_debug_file_container = _debug_init("E:/EXLA/src/debug.txt");
     debug_file_overwrite(_debug_on, _debug_file_container, "hmm");
     debug_file_append(_debug_on, _debug_file_container, "attatched");
     test();

@@ -3,12 +3,12 @@
 #include <math.h>
 #include <stdlib.h>
 /*
-struct token {
+ token {
     char *string;
     int length;
 };
 
-struct string_literal {
+ string_literal {
     char *string;
     int length;
 };
@@ -64,31 +64,31 @@ struct group { //todo
     int **data; //todo: https://www.tutorialspoint.com/cprogramming/c_data_types.htm, use types to have appropriate data sizes
 };
 */
-struct string_literal _construct_string_literal(char *strl) {
+string_literal _construct_string_literal(char *strl) {
     int len = 0;
     while (strl[len] != '\0') {
         len++;
     }
-    return (struct string_literal){strl, len};
+    return ( string_literal){strl, len};
 }
 
-struct char_literal _construct_char_literal(char cl) {
+char_literal _construct_char_literal(char cl) {
     switch(cl) {
         case '\e':
-        case '\\': return (struct char_literal){cl, 0, 1};
+        case '\\': return ( char_literal){cl, 0, 1};
 
         case '\n':
         case '\t':
         case '\v':
         case '\r':
-        case '\f': return (struct char_literal){cl, 1, 1};
+        case '\f': return ( char_literal){cl, 1, 1};
 
-        case ' ': return (struct char_literal){cl, 1, 0};
+        case ' ': return ( char_literal){cl, 1, 0};
 
-        default:   return (struct char_literal){cl, 0, 0};
+        default:   return ( char_literal){cl, 0, 0};
     }
 }
-struct int_literal _construct_int_literal(int il) {
+ int_literal _construct_int_literal(int il) {
     //val length negative, length only includes digits
     int len = 0;
     int is_negative = 0;
@@ -99,10 +99,10 @@ struct int_literal _construct_int_literal(int il) {
         len++;
     }
     str_rep[len] = '\0';
-    return (struct int_literal){il, len, is_negative, str_rep};
+    return ( int_literal){il, len, is_negative, str_rep};
 }
 
-struct float_literal _construct_float_literal(float fl) {
+ float_literal _construct_float_literal(float fl) {
     int len = 0;
     int is_negative = 0;
     char *str_rep = calloc(40, sizeof(char)); //idk lol
@@ -116,46 +116,46 @@ struct float_literal _construct_float_literal(float fl) {
         len++;
     }
     str_rep[len] = '\0';
-    return (struct float_literal){fl, len, is_negative, str_rep};
+    return ( float_literal){fl, len, is_negative, str_rep};
 }
 
-struct float_array_literal _construct_float_array_literal(struct float_literal *fls) {
+ float_array_literal _construct_float_array_literal( float_literal *fls) {
     int len = 0;
     while(&(fls[len])) { //todo test this part
         len++;
     }
-    return (struct float_array_literal){fls, len};
+    return ( float_array_literal){fls, len};
 }
 
-struct int_array_literal _construct_int_array_literal(struct int_literal *ils) {
+ int_array_literal _construct_int_array_literal( int_literal *ils) {
     int len = 0;
     while(&(ils[len])) { //todo test this part
         len++;
     }
-    return (struct int_array_literal){ils, len};
+    return ( int_array_literal){ils, len};
 }
 
-struct string_array_literal _construct_string_array_literal(struct string_literal *strs) {
+ string_array_literal _construct_string_array_literal( string_literal *strs) {
     int len = 0;
     while(&(strs[len])) {
         len++;
     }
-    return (struct string_array_literal){strs, len};
+    return ( string_array_literal){strs, len};
 }
 
-struct char_array_literal _construct_char_array_literal(struct char_literal *chars) {
+ char_array_literal _construct_char_array_literal( char_literal *chars) {
     int len = 0;
     while(&(chars[len])) {
         len++;
     }
-    return (struct char_array_literal){chars, len};
+    return ( char_array_literal){chars, len};
 }
 
-struct matrix_literal _construct_matrix_literal(void); //todo
+ matrix_literal _construct_matrix_literal(void); //todo
 
-struct group _construct_group(void); //todo
+ group _construct_group(void); //todo
 
-struct string_literal _append_string_string_literals(struct string_literal sl1, struct string_literal sl2) {
+ string_literal _append_string_string_literals( string_literal sl1,  string_literal sl2) {
     int total_len = sl1.length + sl2.length;
     char *appended = calloc(total_len + 1, sizeof(char)); //+1 for escape
     int i = 0;
@@ -171,7 +171,7 @@ struct string_literal _append_string_string_literals(struct string_literal sl1, 
     return _construct_string_literal(appended);
 }
 
-struct string_literal _append_char_string_literals(struct char_literal cl1, struct string_literal sl1) {
+ string_literal _append_char_string_literals( char_literal cl1,  string_literal sl1) {
     int total_len = sl1.length + 1; //1 for char;
     char *appended = calloc(total_len + 1, sizeof(char)); // +1 for escape
     appended[0] = cl1.chr;
@@ -184,7 +184,7 @@ struct string_literal _append_char_string_literals(struct char_literal cl1, stru
     return _construct_string_literal(appended);
 }
 
-struct string_literal _append_string_char_literals(struct string_literal sl1, struct char_literal cl1) {
+ string_literal _append_string_char_literals( string_literal sl1,  char_literal cl1) {
     int total_len = sl1.length + 1; //1 for char;
     char *appended = calloc(total_len + 1, sizeof(char)); // +1 for escape
     int i = 0;
@@ -197,7 +197,7 @@ struct string_literal _append_string_char_literals(struct string_literal sl1, st
     return _construct_string_literal(appended);
 }
 
-struct string_literal _append_char_char_literals(struct char_literal cl1, struct char_literal cl2) {
+ string_literal _append_char_char_literals( char_literal cl1,  char_literal cl2) {
     char *appended = calloc(3, sizeof(char));
     appended[0] = cl1.chr;
     appended[1] = cl2.chr;
@@ -205,87 +205,87 @@ struct string_literal _append_char_char_literals(struct char_literal cl1, struct
     return _construct_string_literal(appended);
 }
 
-struct char_literal _add_char_char_literals(struct char_literal cl1, struct char_literal cl2) {
+ char_literal _add_char_char_literals( char_literal cl1,  char_literal cl2) {
     return _construct_char_literal(cl1.chr + cl2.chr);
 }
 
-struct int_literal _add_int_int_literals(struct int_literal il1, struct int_literal il2) { //todo add subtract and max size check
+ int_literal _add_int_int_literals( int_literal il1,  int_literal il2) { //todo add subtract and max size check
     return _construct_int_literal(il1.value + il2.value);
 }
 
-struct float_literal _add_float_float_literals(struct float_literal fl1, struct float_literal fl2) {
+ float_literal _add_float_float_literals( float_literal fl1,  float_literal fl2) {
     return _construct_float_literal(fl1.value + fl2.value);
 }
 
-struct float_literal _add_int_float_literals(struct int_literal il1, struct float_literal fl1) {
+ float_literal _add_int_float_literals( int_literal il1,  float_literal fl1) {
     return _construct_float_literal(fl1.value + (float)il1.value);
 }
 
-struct float_literal _add_float_int_literals(struct float_literal fl1, struct int_literal il1) {
+ float_literal _add_float_int_literals( float_literal fl1,  int_literal il1) {
     return _construct_float_literal(fl1.value + (float)il1.value);
 }
 
-struct int_literal _bitwise_not_int_literal(struct int_literal il1) {
+ int_literal _bitwise_not_int_literal( int_literal il1) {
     return _construct_int_literal(!il1.value);
 }
 
-struct int_literal _bitwise_and_int_literal(struct int_literal il1, struct int_literal il2) {
+ int_literal _bitwise_and_int_literal( int_literal il1,  int_literal il2) {
     return _construct_int_literal(il1.value & il2.value);
 }
 
-struct int_literal _bitwise_or_int_literal(struct int_literal il1, struct int_literal il2) {
+ int_literal _bitwise_or_int_literal( int_literal il1,  int_literal il2) {
     return _construct_int_literal(il1.value | il2.value);
 }
 
-struct int_literal _bitwise_xor_int_literal(struct int_literal il1, struct int_literal il2) {
+ int_literal _bitwise_xor_int_literal( int_literal il1,  int_literal il2) {
     return _construct_int_literal(il1.value ^ il2.value);
 }
 
-struct int_literal _bitwise_nor_int_literal(struct int_literal il1, struct int_literal il2) {
+ int_literal _bitwise_nor_int_literal( int_literal il1,  int_literal il2) {
     return _construct_int_literal(!(il1.value | il2.value));
 }
 
-struct int_literal _bitwise_nand_int_literal(struct int_literal il1, struct int_literal il2) {
+ int_literal _bitwise_nand_int_literal( int_literal il1,  int_literal il2) {
     return _construct_int_literal(!(il1.value & il2.value));
 }
 
-struct int_literal _round_float_literal(struct float_literal fl1) {
+ int_literal _round_float_literal( float_literal fl1) {
     return _construct_int_literal(round(fl1.value));
 }
 
-struct int_literal _ceil_float_literal(struct float_literal fl1) {
+ int_literal _ceil_float_literal( float_literal fl1) {
     return _construct_int_literal(ceil(fl1.value));
 }
 
-struct int_literal _floor_float_literal(struct float_literal fl1) {
+ int_literal _floor_float_literal( float_literal fl1) {
     return _construct_int_literal(floor(fl1.value));
 }
 
-struct int_literal _divide_int_int_literal(struct int_literal il1, struct int_literal il2) {
+ int_literal _divide_int_int_literal( int_literal il1,  int_literal il2) {
     return _construct_int_literal(il1.value/il2.value);
 }
 
-struct float_literal _divide_float_int_literal(struct float_literal fl1, struct int_literal il1) {
+ float_literal _divide_float_int_literal( float_literal fl1,  int_literal il1) {
     return _construct_float_literal(fl1.value/(float)il1.value);
 }
 
-struct float_literal _divide_int_float_literal(struct int_literal il1, struct float_literal fl1) {
+ float_literal _divide_int_float_literal( int_literal il1,  float_literal fl1) {
     return _construct_float_literal((float)il1.value/fl1.value);
 }
 
-struct float_literal _divide_float_float_literal(struct float_literal fl1, struct float_literal fl2) {
+ float_literal _divide_float_float_literal( float_literal fl1,  float_literal fl2) {
     return _construct_float_literal(fl1.value/fl2.value);
 }
 
-struct int_literal _multiply_int_int_literal(struct int_literal il1, struct int_literal il2) {
+ int_literal _multiply_int_int_literal( int_literal il1,  int_literal il2) {
     return _construct_int_literal(il1.value*il2.value);
 }
-struct float_literal _multiply_float_int_literal(struct float_literal fl1, struct int_literal il1) {
+ float_literal _multiply_float_int_literal( float_literal fl1,  int_literal il1) {
     return _construct_float_literal(fl1.value * (float)il1.value);
 }
-struct float_literal _multiply_int_float_literal(struct int_literal il1, struct float_literal fl1) {
+ float_literal _multiply_int_float_literal( int_literal il1,  float_literal fl1) {
     return _construct_float_literal((float)il1.value * fl1.value);
 }
-struct float_literal _multiply_float_float_literal(struct float_literal fl1, struct float_literal fl2) {
+ float_literal _multiply_float_float_literal( float_literal fl1,  float_literal fl2) {
     return _construct_float_literal(fl1.value*fl2.value);
 }
