@@ -3,6 +3,7 @@
 #include "debug.h"
 #include "tokens.h"
 #include "test.h"
+#include "parse.h"
 
 void test(void) {
     token **buffer = _init_token_buffer();
@@ -18,4 +19,10 @@ void test(void) {
     printf("%d\n", npbs);
     if (found_in_buffer) debug_print_line(1, "NPS token found\n");
     else debug_print_line(1, "NPS not found");
+    token *test_gen = convert_str_to_token("lmao");
+    print_token(*test_gen);
+}
+
+void print_token(token tok) {
+    printf("TOKEN: String = {%s}, Length = {%d}, Preset = {%d}\n", tok.string, tok.length, tok.is_preset);
 }

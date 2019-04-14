@@ -10,6 +10,8 @@ struct token {
 };
 */
 
+token **current_buffer;
+
 token **_init_token_buffer(void) {
     token **token_buffer = calloc(TOKEN_BUFFER_SIZE, sizeof(token*));
     token_buffer[0]  = _init_preset_token("`", 1);
@@ -36,6 +38,7 @@ token **_init_token_buffer(void) {
     token_buffer[21] = _init_preset_token("var_d", 5);
     token_buffer[22] = _init_preset_token(" ", 1);
     token_buffer[23] = _init_preset_token("END_PRESET", 10);
+    current_buffer = token_buffer;
     return token_buffer;
 }
 
@@ -121,4 +124,8 @@ int is_nonpreset_token(token **buffer, char *str, int length) {
         i++;
     }
     return 0;
+}
+
+token **get_current_buffer(void) {
+    return current_buffer;
 }

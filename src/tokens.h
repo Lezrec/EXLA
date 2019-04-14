@@ -10,5 +10,5 @@ int is_preset_token(struct token **buffer, char *str, int length);
 int _init_nonpreset_token(token **buffer, char *str, int length);
 int is_nonpreset_token(token **buffer, char *str, int length);
 int nonpreset_token_buffer_size(token **buffer);
-
+token **get_current_buffer(void);
 #endif
