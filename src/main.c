@@ -16,5 +16,8 @@ int main(int argc, char **argv) {
     debug_file_overwrite(_debug_on, _debug_file_container, "hmm");
     debug_file_append(_debug_on, _debug_file_container, "attatched");
     test();
+    FILE *file = fopen("test.exla", "r");
+    parse_file(file);
+    fclose(file);
     return 0;
 }
