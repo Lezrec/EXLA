@@ -114,8 +114,6 @@ int _init_nonpreset_token(token **buffer, char *str, int length) {
 int is_nonpreset_token(token **buffer, char *str, int length) {
     int i = preset_token_buffer_size(buffer);
     while(buffer[i]) {
-        printf("%s\n", buffer[i]->string);
-        printf("%s\n", str);
         if (buffer[i]->length == length) {
             for(int j = 0; j < length; j++) {
                 if (buffer[j]->string[j] != str[j]) break;
@@ -127,5 +125,7 @@ int is_nonpreset_token(token **buffer, char *str, int length) {
 }
 
 token **get_current_buffer(void) {
-    return current_buffer;
+    if (current_buffer) return current_buffer;
+    //null buffer
+    return 0;
 }

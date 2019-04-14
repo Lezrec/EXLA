@@ -17,10 +17,11 @@ void test(void) {
     printf("%d\n", pbs);
     int npbs = nonpreset_token_buffer_size(buffer);
     printf("%d\n", npbs);
-    if (found_in_buffer) debug_print_line(1, "NPS token found\n");
+    if (found_in_buffer) debug_print_line(1, "NPS token found");
     else debug_print_line(1, "NPS not found");
-    token *test_gen = convert_str_to_token("lmao");
-    print_token(*test_gen);
+    token *test_gen = convert_str_to_token("reeee");
+    if (test_gen) print_token(*test_gen);
+    else printf("NULL TOKEN!!\n");
 }
 
 void print_token(token tok) {
